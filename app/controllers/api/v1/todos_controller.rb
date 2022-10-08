@@ -1,4 +1,9 @@
 class Api::V1::TodosController < ApplicationController
+
+  def show
+    render json: { status: 200, todos: Todo.find(params[:id]) }
+  end
+
   def index
     render json: { status: 200, todos: Todo.all }
   end
