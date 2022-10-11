@@ -1,0 +1,6 @@
+json = @todo
+  {
+    status: 500,
+    message: "Todoの作成に失敗しました"
+  }
+end
