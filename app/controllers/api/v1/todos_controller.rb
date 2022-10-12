@@ -20,7 +20,6 @@ class Api::V1::TodosController < ApplicationController
     if @todo.save
       render json: { status: 200 }
     else
-      render "error.json.jb"
       render json: { status: 500 }
     end
   end
@@ -29,7 +28,6 @@ class Api::V1::TodosController < ApplicationController
     @todo = Todo.find(params[:id])
 
     if @todo.destroy
-      render "index.json.jb"
       render json: { status: 200 }
     else
       render json: { status: 500 }
