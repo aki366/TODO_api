@@ -1,4 +1,4 @@
-class Api::V1::TodosController < ApplicationController
+class Api::TodosController < ApplicationController
 
   def show
     @todo = Todo.find(params[:id])
@@ -16,21 +16,15 @@ class Api::V1::TodosController < ApplicationController
 
   def create
     @todo = Todo.new(todo_params)
-
     if @todo.save
-      render "index.json.jb"
-    else
-      render "error.json.jb"
+      render json: { status: 200 }
     end
   end
 
   def destroy
     @todo = Todo.find(params[:id])
-
     if @todo.destroy
-      render "index.json.jb"
-    else
-      render "error.json.jb"
+      render json: { status: 200 }
     end
   end
 
