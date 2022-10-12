@@ -25,7 +25,7 @@ class Api::V1::TodosController < ApplicationController
       # render json: { status: 200, todo: todo }
     else
       render "error.json.jb"
-      # render json: { status: 500, message: "Todoの作成に失敗しました" }
+      render json: { status: 500, message: "Todoの作成に失敗しました" }
     end
   end
 
@@ -36,8 +36,7 @@ class Api::V1::TodosController < ApplicationController
       render "index.json.jb"
       # render json: { status: 200, todo: todo }
     else
-      render "error.json.jb"
-      # render json: { status: 500, message: "Todoの削除に失敗しました" }
+      render json: { status: 500, message: "Todoの削除に失敗しました" }
     end
   end
 
