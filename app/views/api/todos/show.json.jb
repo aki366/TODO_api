@@ -1,0 +1,6 @@
+json = {
+  id: @todo.id,
+  text: @todo.text,
+  created_at: @todo.created_at,
+  updated_at: @todo.updated_at
+}
