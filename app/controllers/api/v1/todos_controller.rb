@@ -21,11 +21,11 @@ class Api::V1::TodosController < ApplicationController
     @todo = Todo.new(todo_params)
 
     if @todo.save
-      render "index.json.jb"
-      # render json: { status: 200, todo: todo }
+      # render "index.json.jb"
+      render json: { status: 200 }
     else
       render "error.json.jb"
-      render json: { status: 500, message: "Todoの作成に失敗しました" }
+      render json: { status: 500 }
     end
   end
 
@@ -34,9 +34,9 @@ class Api::V1::TodosController < ApplicationController
 
     if @todo.destroy
       render "index.json.jb"
-      # render json: { status: 200, todo: todo }
+      render json: { status: 200 }
     else
-      render json: { status: 500, message: "Todoの削除に失敗しました" }
+      render json: { status: 500 }
     end
   end
 
