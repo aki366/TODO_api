@@ -1,4 +1,4 @@
-json = @todos.map do |todo|
+json = todos.map do |todo|
   {
     id: todo.id,
     text: todo.text,
