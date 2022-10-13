@@ -17,7 +17,8 @@ class Api::TodosController < ApplicationController
   def create
     @todo = Todo.new(todo_params)
     if @todo.save
-      render json: { status: 200 }
+      render json: { status: 200 }if @todo.save
+      render json: { status: 500 }
     end
   end
 
