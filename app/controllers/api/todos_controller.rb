@@ -25,6 +25,7 @@ class Api::TodosController < ApplicationController
   def destroy
     todo = Todo.find(params[:id])
     return render json: { status: 200 } if todo.destroy
+    render json: { status: 500 }
   end
 
   private
