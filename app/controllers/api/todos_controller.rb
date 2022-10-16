@@ -10,8 +10,11 @@ class Api::TodosController < ApplicationController
     render "index.json.jb"
   end
 
-  def edit
-    @todo = Todo.find(params[:id])
+  def update
+    @todo = Todo.find_by(id: params[:id])
+    if @todo.update(todo_params)
+      @todo.save
+    end
   end
 
   def create
