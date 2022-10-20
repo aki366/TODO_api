@@ -12,7 +12,12 @@ RSpec.describe "Todos Request", type: :request do
     end
 
     describe 'GET #index' do
-      it 'TODOの一覧を取得できること' do
+      let!(:todo) { create(:todo) }
+      context 'TODOが作成されているとき' do
+        it 'TODOの一覧を取得できること' do
+          get "/api/todos"
+          expect(response).to have_http_status(200)
+        end
       end
     end
 
