@@ -52,9 +52,12 @@ RSpec.describe "Todos Request", type: :request do
     end
 
     describe 'POST #create' do
-      context 'todoのtextが入力されてるとき' do
-        it 'TODOが作成できること' do
-        end
+      let!(:todo) { create(:todo) }
+      it 'TODOが作成できること' do
+        expect do
+          post api_todos_path, params: { todo: attributes_for(:todo) }
+        end.to change(Todo, :count).by(+1)
+        expect(response).to have_http_status(200)
       end
     end
 
