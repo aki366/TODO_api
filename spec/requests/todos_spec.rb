@@ -14,9 +14,17 @@ RSpec.describe "Todos Request", type: :request do
     describe 'GET #index' do
       let!(:todo) { create(:todo) }
       context 'TODOが作成されているとき' do
-        it 'TODOの一覧を取得できること' do
-          get "/api/todos"
+        before { get "/api/todos" }
+        it 'responseのステータスが200であること' do
           expect(response).to have_http_status(200)
+        end
+        it 'responseの中身が正しいこと' do
+          json = JSON.parse(response.body)
+          # 帰ってきたtodoの配列数が1を確認
+          expect(json.count).to eq 1
+          # 0番目の配列の中身が正しいことを確認
+          expect(json[0]['id']).to eq todo.id
+          expect(json[0]['text']).to eq todo.text
         end
       end
     end
