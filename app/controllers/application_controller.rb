@@ -5,11 +5,11 @@ class ApplicationController < ActionController::API
   rescue_from ActionController::RoutingError, with: :render_404
 
   def render_404
-    render json: { status: 404 }
+    render json: { status: 404 }, status: 404
   end
 
   def render_500
-    render json: { status: 500 }
+    render json: { status: 500 }, status: 500
   end
 
 end
