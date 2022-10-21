@@ -39,17 +39,25 @@ RSpec.describe "Todos Request", type: :request do
       end
     end
 
-    describe 'GET #edit' do
+    describe 'PUT #update' do
+      let!(:todo) { create(:todo) }
       context '存在するTODOを編集したとき' do
         it 'TODOが編集できること' do
+          expect do
+            patch api_todo_path(todo.id), params: { todo: {text: "TODOを編集しました"} }
+          end.to change { Todo.find(1).text }
+          expect(response).to have_http_status(200)
         end
       end
     end
 
     describe 'POST #create' do
-      context 'todoのtextが入力されてるとき' do
-        it 'TODOが作成できること' do
-        end
+      let!(:todo) { create(:todo) }
+      it 'TODOが作成できること' do
+        expect do
+          post api_todos_path, params: { todo: attributes_for(:todo) }
+        end.to change(Todo, :count).by(+1)
+        expect(response).to have_http_status(200)
       end
     end
 
@@ -64,13 +72,29 @@ RSpec.describe "Todos Request", type: :request do
   # 異常系
   describe '異常系' do
     describe 'GET #show' do
-      context '存在しないTODOにアクセスしたとき' do
+      let!(:todo) { create(:todo) }
+
+      before do
+        allow(Todo).to receive(:find).and_raise(error)
+        get "/api/todos/#{todo.id}"
+      end
+
+      context 'レコードが存在しない場合' do
+        let!(:error) { ActiveRecord::RecordNotFound.new }
         it 'エラーになること' do
+          expect(response).to have_http_status(404)
+        end
+      end
+
+      context 'レコードが存在しない場合' do
+        let!(:error) { Exception.new }
+        it 'エラーになること' do
+          expect(response).to have_http_status(500)
         end
       end
     end
 
-    describe 'GET #edit' do
+    describe 'PUT #update' do
       context '存在しないTODOを編集したとき' do
         it 'エラーになること' do
         end
@@ -86,6 +110,10 @@ RSpec.describe "Todos Request", type: :request do
 
     describe 'DELETE #destroy' do
       context '存在しないTODOを削除したとき' do
+        let(:error) { ActiveRecord::RecordNotFound.new }
+
+        before { allow(Todo).to receive(:find).and_raise(error) }
+
         it 'エラーになること' do
         end
       end
