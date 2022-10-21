@@ -5,8 +5,18 @@ RSpec.describe "Todos Request", type: :request do
   # 正常系
   describe '正常系' do
     describe 'GET #show' do
+      let!(:todo) { create(:todo) }
       context '存在するTODOにアクセスしたとき' do
-        it 'TODOの詳細情報を取得できること' do
+        before { get "/api/todos/#{todo.id}" }
+        it 'responseのステータスが200であること' do
+          expect(response).to have_http_status(200)
+        end
+        it 'responseの中身が正しいこと' do
+          json = JSON.parse(response.body)
+          expect(json['id']).to eq todo.id
+          expect(json['text']).to eq todo.text
+          expect(json['created_at']).not_to be nil
+          expect(json['updated_at']).not_to be nil
         end
       end
     end
