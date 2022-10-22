@@ -140,8 +140,24 @@ RSpec.describe "Todos Request", type: :request do
     end
 
     describe 'PUT #update' do
-      context '存在しないTODOを編集したとき' do
+      let!(:todo) { create(:todo) }
+
+      before do
+        allow(Todo).to receive(:find).and_raise(error)
+        put "/api/todos/#{todo.id}"
+      end
+
+      context 'レコードが存在しない場合' do
+        let!(:error) { ActiveRecord::RecordNotFound.new }
         it 'エラーになること' do
+          expect(response).to have_http_status(404)
+        end
+      end
+
+      context 'レコードが存在しない場合' do
+        let!(:error) { Exception.new }
+        it 'エラーになること' do
+          expect(response).to have_http_status(500)
         end
       end
     end
