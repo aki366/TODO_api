@@ -6,8 +6,10 @@ RSpec.describe "Todos Request", type: :request do
   describe '正常系' do
     describe 'GET #show' do
       let!(:todo) { create(:todo) }
+
+      before { get "/api/todos/#{todo.id}" }
+
       context '存在するTODOにアクセスしたとき' do
-        before { get "/api/todos/#{todo.id}" }
         it 'responseのステータスが200であること' do
           expect(response).to have_http_status(200)
         end
@@ -23,16 +25,16 @@ RSpec.describe "Todos Request", type: :request do
 
     describe 'GET #index' do
       let!(:todo) { create(:todo) }
+
+      before { get "/api/todos" }
+
       context 'TODOが作成されているとき' do
-        before { get "/api/todos" }
         it 'responseのステータスが200であること' do
           expect(response).to have_http_status(200)
         end
         it 'responseの中身が正しいこと' do
           json = JSON.parse(response.body)
-          # 帰ってきたtodoの配列数が1を確認
           expect(json.count).to eq 1
-          # 0番目の配列の中身が正しいことを確認
           expect(json[0]['id']).to eq todo.id
           expect(json[0]['text']).to eq todo.text
         end
@@ -41,6 +43,7 @@ RSpec.describe "Todos Request", type: :request do
 
     describe 'PUT #update' do
       let!(:todo) { create(:todo) }
+
       context '存在するTODOを編集したとき' do
         it 'TODOが編集できること' do
           expect do
@@ -53,6 +56,7 @@ RSpec.describe "Todos Request", type: :request do
 
     describe 'POST #create' do
       let!(:todo) { create(:todo) }
+
       it 'TODOが作成できること' do
         expect do
           post api_todos_path, params: { todo: attributes_for(:todo) }
