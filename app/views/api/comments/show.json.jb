@@ -1,0 +1,7 @@
+json = {
+  id: @comment.id,
+  text: @comment.text,
+  todo_id: @comment.todo_id,
+  created_at: @comment.created_at,
+  updated_at: @comment.updated_at
+}
