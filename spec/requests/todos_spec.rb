@@ -102,7 +102,7 @@ RSpec.describe "Todos Request", type: :request do
         end
       end
 
-      context 'レコードが存在しない場合' do
+      context 'Excepionエラーの場合' do
         let!(:error) { Exception.new }
         it 'エラーになること' do
           expect(response).to have_http_status(500)
@@ -125,7 +125,7 @@ RSpec.describe "Todos Request", type: :request do
         end
       end
 
-      context 'レコードが存在しない場合' do
+      context 'Excepionエラーの場合' do
         let!(:error) { Exception.new }
         it 'エラーになること' do
           expect(response).to have_http_status(500)
@@ -148,7 +148,7 @@ RSpec.describe "Todos Request", type: :request do
         end
       end
 
-      context 'レコードが存在しない場合' do
+      context 'Excepionエラーの場合' do
         let!(:error) { Exception.new }
         it 'エラーになること' do
           expect(response).to have_http_status(500)
@@ -164,7 +164,7 @@ RSpec.describe "Todos Request", type: :request do
         post "/api/todos"
       end
 
-      context 'レコードが作成されない場合' do
+      context 'Excepionエラーの場合' do
         let!(:error) { Exception.new }
         it 'エラーになること' do
           expect(response).to have_http_status(500)
@@ -187,7 +187,7 @@ RSpec.describe "Todos Request", type: :request do
         end
       end
 
-      context 'レコードが存在しない場合' do
+      context 'Excepionエラーの場合' do
         let!(:error) { Exception.new }
         it 'エラーになること' do
           expect(response).to have_http_status(500)
