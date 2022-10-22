@@ -47,18 +47,14 @@ RSpec.describe "Todos Request", type: :request do
       let!(:todo) { create(:todo) }
 
       context '存在するTODOを編集したとき' do
-        it 'responseのステータスが200であること' do
-          expect do
-            patch api_todo_path(todo.id),
-            params: { todo: {text: "TODOを編集しました"} }
-          end.to change { Todo.find(1).text }
-          expect(response).to have_http_status(200)
-        end
-        it 'responseの中身が正しいこと' do
+        it 'responsが正常であること' do
           expect do
             put "/api/todos/#{todo.id}",
             params: { todo: {text: "TODOを編集しました"} }
           end.to change { Todo.find(1).text }
+
+          expect(response).to have_http_status(200)
+          expect(Todo.find(1).text).to eq "TODOを編集しました"
           expect(Todo.find(1).id).to eq todo.id
           expect(Todo.find(1).created_at).not_to be nil
           expect(Todo.find(1).updated_at).not_to be nil
