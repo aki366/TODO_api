@@ -63,8 +63,6 @@ RSpec.describe "Todos Request", type: :request do
     end
 
     describe 'POST #create' do
-      let!(:todo) { create(:todo) }
-
       it 'TODOが作成できること' do
         expect do
           post "/api/todos", params: { todo: attributes_for(:todo) }
