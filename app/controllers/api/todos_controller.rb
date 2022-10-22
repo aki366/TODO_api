@@ -12,20 +12,20 @@ class Api::TodosController < ApplicationController
 
   def update
     todo = Todo.find(params[:id])
-    return render json: { status: 200 } if todo.update(todo_params)
-    render json: { status: 500 }
+    return render json: { status: 200 }, status: 200 if todo.update(todo_params)
+    render json: { status: 500 }, status: 500
   end
 
   def create
     todo = Todo.new(todo_params)
-    return render json: { status: 200 } if todo.save
-    render json: { status: 500 }
+    return render json: { status: 200 }, status: 200 if todo.save
+    render json: { status: 500 }, status: 500
   end
 
   def destroy
     todo = Todo.find(params[:id])
-    return render json: { status: 200 } if todo.destroy
-    render json: { status: 500 }
+    return render json: { status: 200 }, status: 200 if todo.destroy
+    render json: { status: 500 }, status: 500
   end
 
   private
