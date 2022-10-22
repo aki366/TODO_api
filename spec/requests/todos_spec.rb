@@ -166,15 +166,8 @@ RSpec.describe "Todos Request", type: :request do
       let!(:todo) { create(:todo) }
 
       before do
-        allow(Todo).to receive(:find).and_raise(error)
-        put "/api/todos/#{todo.id}"
-      end
-
-      context 'レコードが作成されない場合' do
-        let!(:error) { ActiveRecord::RecordNotFound.new }
-        it 'エラーになること' do
-          expect(response).to have_http_status(404)
-        end
+        allow(Todo).to receive(:new).and_raise(error)
+        post "/api/todos"
       end
 
       context 'レコードが作成されない場合' do
