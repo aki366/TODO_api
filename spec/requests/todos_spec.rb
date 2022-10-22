@@ -97,14 +97,14 @@ RSpec.describe "Todos Request", type: :request do
 
       context 'レコードが存在しない場合' do
         let!(:error) { ActiveRecord::RecordNotFound.new }
-        it 'エラーになること' do
+        it 'statusが404になること' do
           expect(response).to have_http_status(404)
         end
       end
 
       context 'Excepionエラーの場合' do
         let!(:error) { Exception.new }
-        it 'エラーになること' do
+        it 'statusが500になること' do
           expect(response).to have_http_status(500)
         end
       end
@@ -120,14 +120,14 @@ RSpec.describe "Todos Request", type: :request do
 
       context 'レコードが存在しない場合' do
         let!(:error) { ActiveRecord::RecordNotFound.new }
-        it 'エラーになること' do
+        it 'statusが404になること' do
           expect(response).to have_http_status(404)
         end
       end
 
       context 'Excepionエラーの場合' do
         let!(:error) { Exception.new }
-        it 'エラーになること' do
+        it 'statusが500になること' do
           expect(response).to have_http_status(500)
         end
       end
@@ -143,14 +143,14 @@ RSpec.describe "Todos Request", type: :request do
 
       context 'レコードが存在しない場合' do
         let!(:error) { ActiveRecord::RecordNotFound.new }
-        it 'エラーになること' do
+        it 'statusが404になること' do
           expect(response).to have_http_status(404)
         end
       end
 
       context 'Excepionエラーの場合' do
         let!(:error) { Exception.new }
-        it 'エラーになること' do
+        it 'statusが500になること' do
           expect(response).to have_http_status(500)
         end
       end
@@ -166,7 +166,7 @@ RSpec.describe "Todos Request", type: :request do
 
       context 'Excepionエラーの場合' do
         let!(:error) { Exception.new }
-        it 'エラーになること' do
+        it 'statusが500になること' do
           expect(response).to have_http_status(500)
         end
       end
@@ -182,14 +182,14 @@ RSpec.describe "Todos Request", type: :request do
 
       context 'レコードが存在しない場合' do
         let!(:error) { ActiveRecord::RecordNotFound.new }
-        it 'エラーになること' do
+        it 'statusが404になること' do
           expect(response).to have_http_status(404)
         end
       end
 
       context 'Excepionエラーの場合' do
         let!(:error) { Exception.new }
-        it 'エラーになること' do
+        it 'statusが500になること' do
           expect(response).to have_http_status(500)
         end
       end
