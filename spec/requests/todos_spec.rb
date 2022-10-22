@@ -71,15 +71,21 @@ RSpec.describe "Todos Request", type: :request do
 
       it 'TODOが作成できること' do
         expect do
-          post api_todos_path, params: { todo: attributes_for(:todo) }
+          post "/api/todos", params: { todo: attributes_for(:todo) }
         end.to change(Todo, :count).by(+1)
         expect(response).to have_http_status(200)
       end
     end
 
     describe 'DELETE #destroy' do
+      let!(:todo) { create(:todo) }
+
       context '存在するTODOを削除したとき' do
-        it 'TODOの削除ができること' do
+        it 'TODOが削除できること' do
+          expect do
+            delete "/api/todos/#{todo.id}"
+          end.to change(Todo, :count).by(-1)
+          expect(response).to have_http_status(200)
         end
       end
     end
